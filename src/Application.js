@@ -1,5 +1,6 @@
 
 import React, {useState, useEffect} from "react";
+import HighScore from "./HighScore";
 
 const Application = () => {
     let [count, setState] = useState(0);
@@ -7,16 +8,21 @@ const Application = () => {
     const handleClick = () => {
         setState(count+1)
     }
+      const resetCount = () => {
+        setState(0);
+        setOverTen(false);
+      };
     useEffect(() => {
       if (count > 10) {
         setOverTen(true);
+        console.log("updating...")
       }
     }, [count]);
  
   return (
     <div>
       <h1>You clicked the button {count} times</h1>
-     {overTen && ( <h3>Beat High score of 10!</h3>)}
+      {overTen && <HighScore onReset={resetCount} />}
       <span>
         <button onClick={handleClick}>Click Me</button>
       </span>
